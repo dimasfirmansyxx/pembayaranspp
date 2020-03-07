@@ -193,17 +193,17 @@ class functions {
 		}
 	}
 
-	// public function delete_major($id_jurusan)
-	// {
-	// 	$delete = $this->exe("DELETE FROM tbljurusan WHERE id_jurusan = '$id_jurusan'");
-	// 	if ( $delete > 0 ) {
-	// 		$this->notif("Sukses menghapus jurusan","success");
-	// 		$this->redirect($this->baseurl . "major.php");
-	// 	} else {
-	// 		$this->notif("Gagal! Kesalahan pada query","danger");
-	// 		$this->redirect($this->baseurl . "major.php");
-	// 	}
-	// }
+	public function delete_class($id_kelas)
+	{
+		$delete = $this->exe("DELETE FROM tblkelas WHERE id_kelas = '$id_kelas'");
+		if ( $delete > 0 ) {
+			$this->notif("Sukses menghapus kelas","success");
+			$this->redirect($this->baseurl . "class.php");
+		} else {
+			$this->notif("Gagal! Kesalahan pada query","danger");
+			$this->redirect($this->baseurl . "class.php");
+		}
+	}
 
 	// public function edit_major($data)
 	// {
