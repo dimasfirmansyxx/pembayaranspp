@@ -35,7 +35,7 @@ if ( isset($_POST['simpan']) ) {
 <div class="content-section mt-5">
 	<div class="card">
 		<div class="card-header bg-warning text-white">
-			Tambah Jurusan
+			Edit Jurusan
 		</div>
 		<div class="card-body">
 			<a href="<?= $myfunc->baseurl ?>major.php" class="btn btn-primary">< Kembali</a>
