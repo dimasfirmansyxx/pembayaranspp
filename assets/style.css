@@ -19,6 +19,7 @@ body {
 	background-color: #d2dae2;
 }
 .content {
+	min-height: 768px;
 	margin: 30px 5% 0 20%;	
 }
 
@@ -62,6 +63,7 @@ nav.topnav a:hover {
 
 footer {
 	padding: 20px;
+	bottom: 0;
 }
 
 
