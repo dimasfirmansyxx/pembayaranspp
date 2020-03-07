@@ -184,6 +184,9 @@ footer {
 	padding: 25px;
 }
 /*button*/
+a.btn {
+	text-decoration: none;
+}
 .btn {
 	background: #636e72;
 	border: 1px solid #dfe6e9;

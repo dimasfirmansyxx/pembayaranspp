@@ -41,4 +41,41 @@ class functions {
 		$query = mysqli_query($this->conn,$query);
 		return mysqli_fetch_assoc($query);
 	}
+
+	public function query($query)
+	{
+		$rows = [];
+		$get = mysqli_query($this->conn,$query);
+		while ( $row = mysqli_fetch_assoc($get) ) {
+			$rows[] = $row;
+		}
+
+		return $rows;
+	}
+
+	public function num_rows($query)
+	{
+		$get = mysqli_query($this->conn,$query);
+		return mysqli_num_rows($get);
+	}
+
+
+	public function get_major($id_jurusan = null)
+	{
+		if ( $id_jurusan == null ) {
+			$query = "SELECT * FROM tbljurusan";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->query($query);
+			}
+		} else {
+			$query = "SELECT * FROM tbljurusan WHERE id_jurusan = '$id_jurusan'";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->get_data($query);
+			}
+		}
+	}
 }
