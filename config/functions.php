@@ -205,23 +205,24 @@ class functions {
 		}
 	}
 
-	// public function edit_major($data)
-	// {
-	// 	$id_jurusan = $data['id_jurusan'];
-	// 	$jurusan = $data['jurusan'];
+	public function edit_class($data)
+	{
+		$id_kelas = $data['id_kelas'];
+		$id_jurusan = $data['id_jurusan'];
+		$kelas = $data['kelas'];
 
-	// 	if ( $this->check_availability("SELECT * FROM tbljurusan WHERE jurusan = '$jurusan'") ) {
-	// 		$this->notif("Gagal! Jurusan sudah ada","warning");
-	// 		$this->redirect($this->baseurl . "major_edit.php?id=$id_jurusan");
-	// 	} else {
-	// 		$insert = $this->exe("UPDATE tbljurusan SET jurusan = '$jurusan' WHERE id_jurusan = '$id_jurusan'");
-	// 		if ( $insert > 0 ) {
-	// 			$this->notif("Sukses mengubah jurusan","success");
-	// 			$this->redirect($this->baseurl . "major.php");
-	// 		} else {
-	// 			$this->notif("Gagal! Kesalahan pada query","danger");
-	// 			$this->redirect($this->baseurl . "major_edit.php?id=$id_jurusan");
-	// 		}
-	// 	}
-	// }
+		if ( $this->check_availability("SELECT * FROM tblkelas WHERE kelas = '$kelas' AND id_jurusan = '$id_jurusan'") ) {
+			$this->notif("Gagal! Kelas sudah ada","warning");
+			$this->redirect($this->baseurl . "class_edit.php?id=$id_kelas");
+		} else {
+			$insert = $this->exe("UPDATE tblkelas SET id_jurusan = '$id_jurusan', kelas = '$kelas' WHERE id_kelas = '$id_kelas'");
+			if ( $insert > 0 ) {
+				$this->notif("Sukses mengubah kelas","success");
+				$this->redirect($this->baseurl . "class.php");
+			} else {
+				$this->notif("Gagal! Kesalahan pada query","danger");
+				$this->redirect($this->baseurl . "class_edit.php?id=$id_kelas");
+			}
+		}
+	}
 }
