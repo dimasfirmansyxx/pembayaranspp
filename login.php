@@ -10,6 +10,10 @@ include 'templates/head.php';
 if ( isset($_POST['login']) ) {
 	$myfunc->login_check($_POST);
 }
+
+if ( isset($_SESSION["user_logged"]) ) {
+	$myfunc->redirect($myfunc->baseurl);
+}
 ?>
 
 <div class="login-section mt-5">
