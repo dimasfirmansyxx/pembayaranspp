@@ -154,4 +154,74 @@ class functions {
 			}
 		}
 	}
+
+	public function get_class($id_kelas = null)
+	{
+		if ( $id_kelas == null ) {
+			$query = "SELECT * FROM tblkelas";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->query($query);
+			}
+		} else {
+			$query = "SELECT * FROM tblkelas WHERE id_kelas = '$id_kelas'";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->get_data($query);
+			}
+		}
+	}
+
+	public function add_class($data)
+	{
+		$kelas = strtoupper($data['kelas']);
+		$jurusan = $data['jurusan'];
+		if ( $this->check_availability("SELECT * FROM tblkelas WHERE kelas = '$kelas' AND id_jurusan = '$jurusan'") ) {
+			$this->notif("Gagal! Kelas sudah ada","warning");
+			$this->redirect($this->baseurl . "class_add.php");
+		} else {
+			$insert = $this->exe("INSERT INTO tblkelas VALUES ('','$jurusan','$kelas')");
+			if ( $insert > 0 ) {
+				$this->notif("Sukses menambah kelas","success");
+				$this->redirect($this->baseurl . "class.php");
+			} else {
+				$this->notif("Gagal! Kesalahan pada query","danger");
+				$this->redirect($this->baseurl . "class_add.php");
+			}
+		}
+	}
+
+	// public function delete_major($id_jurusan)
+	// {
+	// 	$delete = $this->exe("DELETE FROM tbljurusan WHERE id_jurusan = '$id_jurusan'");
+	// 	if ( $delete > 0 ) {
+	// 		$this->notif("Sukses menghapus jurusan","success");
+	// 		$this->redirect($this->baseurl . "major.php");
+	// 	} else {
+	// 		$this->notif("Gagal! Kesalahan pada query","danger");
+	// 		$this->redirect($this->baseurl . "major.php");
+	// 	}
+	// }
+
+	// public function edit_major($data)
+	// {
+	// 	$id_jurusan = $data['id_jurusan'];
+	// 	$jurusan = $data['jurusan'];
+
+	// 	if ( $this->check_availability("SELECT * FROM tbljurusan WHERE jurusan = '$jurusan'") ) {
+	// 		$this->notif("Gagal! Jurusan sudah ada","warning");
+	// 		$this->redirect($this->baseurl . "major_edit.php?id=$id_jurusan");
+	// 	} else {
+	// 		$insert = $this->exe("UPDATE tbljurusan SET jurusan = '$jurusan' WHERE id_jurusan = '$id_jurusan'");
+	// 		if ( $insert > 0 ) {
+	// 			$this->notif("Sukses mengubah jurusan","success");
+	// 			$this->redirect($this->baseurl . "major.php");
+	// 		} else {
+	// 			$this->notif("Gagal! Kesalahan pada query","danger");
+	// 			$this->redirect($this->baseurl . "major_edit.php?id=$id_jurusan");
+	// 		}
+	// 	}
+	// }
 }
