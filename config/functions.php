@@ -134,4 +134,24 @@ class functions {
 			$this->redirect($this->baseurl . "major.php");
 		}
 	}
+
+	public function edit_major($data)
+	{
+		$id_jurusan = $data['id_jurusan'];
+		$jurusan = $data['jurusan'];
+
+		if ( $this->check_availability("SELECT * FROM tbljurusan WHERE jurusan = '$jurusan'") ) {
+			$this->notif("Gagal! Jurusan sudah ada","warning");
+			$this->redirect($this->baseurl . "major_edit.php?id=$id_jurusan");
+		} else {
+			$insert = $this->exe("UPDATE tbljurusan SET jurusan = '$jurusan' WHERE id_jurusan = '$id_jurusan'");
+			if ( $insert > 0 ) {
+				$this->notif("Sukses mengubah jurusan","success");
+				$this->redirect($this->baseurl . "major.php");
+			} else {
+				$this->notif("Gagal! Kesalahan pada query","danger");
+				$this->redirect($this->baseurl . "major_edit.php?id=$id_jurusan");
+			}
+		}
+	}
 }

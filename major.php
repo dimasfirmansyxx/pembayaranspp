@@ -45,7 +45,7 @@ if ( isset($_GET['hapus']) ) {
 									<td><?= $i++ ?></td>
 									<td><?= $row['jurusan'] ?></td>
 									<td>
-										<a href="#" class="btn btn-primary">Edit</a>
+										<a href="<?= $myfunc->baseurl ?>major_edit.php?id=<?= $row['id_jurusan'] ?>" class="btn btn-primary">Edit</a>
 										<a href="<?= $myfunc->baseurl ?>major.php?hapus=<?= $row['id_jurusan'] ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
 									</td>
 								</tr>	
