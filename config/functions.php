@@ -59,6 +59,32 @@ class functions {
 		return mysqli_num_rows($get);
 	}
 
+	public function exe($query)
+	{
+		$exe = mysqli_query($this->conn,$query);
+		return mysqli_affected_rows($this->conn);
+	}
+
+	public function check_availability($query)
+	{
+		$get = $this->num_rows($query);
+		if ( $get > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function notif($msg,$status)
+	{
+		$_SESSION["flash_data"] = ["message" => $msg, "status" => $status];
+	}
+
+	public function redirect($link)
+	{
+		header("Location: $link");
+	}
+
 
 	public function get_major($id_jurusan = null)
 	{
@@ -75,6 +101,24 @@ class functions {
 				return 3;
 			} else {
 				return $this->get_data($query);
+			}
+		}
+	}
+
+	public function add_major($jurusan)
+	{
+		$jurusan = ucwords($jurusan);
+		if ( $this->check_availability("SELECT * FROM tbljurusan WHERE jurusan = '$jurusan'") ) {
+			$this->notif("Gagal! Jurusan sudah ada","warning");
+			$this->redirect($this->baseurl . "major_add.php");
+		} else {
+			$insert = $this->exe("INSERT INTO tbljurusan VALUES ('','$jurusan')");
+			if ( $insert > 0 ) {
+				$this->notif("Sukses menambah jurusan","success");
+				$this->redirect($this->baseurl . "major.php");
+			} else {
+				$this->notif("Gagal! Kesalahan pada query","danger");
+				$this->redirect($this->baseurl . "major_add.php");
 			}
 		}
 	}
