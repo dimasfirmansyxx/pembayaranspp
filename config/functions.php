@@ -13,6 +13,13 @@ class functions {
 	{
 		$this->conn = mysqli_connect("localhost","root","","dbspp");
 		$this->baseurl = "http://localhost/pembayaranspp/";
+
+		$uri = end(explode("/", $_SERVER["PHP_SELF"]));
+		if ( !isset($_SESSION["user_logged"]) ) {
+			if ( $uri != "login.php" ) {
+				$this->redirect($this->baseurl . "login.php");
+			}
+		}
 	}
 
 	public function set_breadcrumbs($list)
@@ -85,6 +92,27 @@ class functions {
 		header("Location: $link");
 	}
 
+	public function login_check($data)
+	{
+		$username = $data['username'];
+		$password = $data['password'];
+
+		$query = "SELECT * FROM tbluser WHERE username = '$username'";
+		if ( $this->check_availability($query) ) {
+			$get = $this->get_data($query);
+			if ( password_verify($password, $get['password']) ) {
+				$_SESSION["user_logged"] = $get;
+				$this->redirect($this->baseurl);
+				echo "a";
+			} else {
+				$this->notif("Gagal! Password salah","danger");
+				// $this->redirect($this->baseurl . "login.php");
+			}
+		} else {
+			$this->notif("Gagal! Username tidak ada","danger");
+			// $this->redirect($this->baseurl . "login.php");
+		}
+	}
 
 	public function get_major($id_jurusan = null)
 	{
