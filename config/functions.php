@@ -122,4 +122,16 @@ class functions {
 			}
 		}
 	}
+
+	public function delete_major($id_jurusan)
+	{
+		$delete = $this->exe("DELETE FROM tbljurusan WHERE id_jurusan = '$id_jurusan'");
+		if ( $delete > 0 ) {
+			$this->notif("Sukses menghapus jurusan","success");
+			$this->redirect($this->baseurl . "major.php");
+		} else {
+			$this->notif("Gagal! Kesalahan pada query","danger");
+			$this->redirect($this->baseurl . "major.php");
+		}
+	}
 }

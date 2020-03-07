@@ -11,6 +11,10 @@ include 'templates/head.php';
 include 'templates/nav.php';
 
 $get = $myfunc->get_major();
+
+if ( isset($_GET['hapus']) ) {
+	$myfunc->delete_major($_GET['hapus']);
+}
 ?>
 
 <div class="content-section mt-5">
@@ -42,7 +46,7 @@ $get = $myfunc->get_major();
 									<td><?= $row['jurusan'] ?></td>
 									<td>
 										<a href="#" class="btn btn-primary">Edit</a>
-										<a href="#" class="btn btn-danger">Hapus</a>
+										<a href="<?= $myfunc->baseurl ?>major.php?hapus=<?= $row['id_jurusan'] ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
 									</td>
 								</tr>	
 							<?php endforeach ?>
