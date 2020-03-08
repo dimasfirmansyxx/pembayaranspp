@@ -355,4 +355,38 @@ class functions {
 			}
 		}
 	}
+
+	public function get_report($data)
+	{
+		$kelas = $data['kelas'];
+		$bulan = $data['bulan'];
+		$tahun = $data['tahun'];
+
+		if ( $kelas == 0 ) {
+			$siswa = "SELECT * FROM tblsiswa ORDER BY id_kelas ASC";
+		} else{
+			$siswa = "SELECT * FROM tblsiswa WHERE id_kelas = '$kelas' ORDER BY nama ASC";
+		}
+
+		$siswa = $this->query($siswa);
+
+		$output = [];
+
+		foreach ($siswa as $row) {
+			$nisn = $row['nisn'];
+			$get_payment = "SELECT * FROM tblpembayaran WHERE nisn = '$nisn' AND blnbayar = '$bulan' AND thnbayar = '$tahun'";
+			if ( $this->check_availability($get_payment) ) {
+				$status = "LUNAS";
+			} else {
+				$status = "BELUM LUNAS";
+			}
+
+			$kelas = $this->get_class($row['id_kelas']);
+
+			$arr = ["siswa" => $row['nama'], "kelas" => $kelas['kelas'], "status" => $status];
+			array_push($output, $arr);
+		}
+
+		return $output;
+	}
 }
