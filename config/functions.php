@@ -291,4 +291,30 @@ class functions {
 			}
 		}
 	}
+
+	public function do_payment($data)
+	{
+		$nisn = $data['nisn'];
+		$id_user = $data['id_user'];
+		$tgltransaksi = date("Y-m-d");
+		$blnbayar = $data['bulan'];
+		$thnbayar = $data['tahun'];
+
+		$query = "SELECT * FROM tblpembayaran WHERE nisn = '$nisn' AND blnbayar = '$blnbayar' AND thnbayar = '$thnbayar'";
+
+		if ( $this->check_availability($query) ) {
+			$this->notif("Siswa ini sudah melakukan pembayaran","warning");
+			$this->redirect($this->baseurl . "transaction.php?pay=$nisn");
+		} else {
+			$query = "INSERT INTO tblpembayaran VALUES ('','$nisn','$id_user','$tgltransaksi','$blnbayar','$thnbayar')";
+			$insert = $this->exe($query);
+			if ( $insert > 0 ) {
+				$this->notif("Sukses melakukan pembayaran","success");
+				$this->redirect($this->baseurl . "transaction.php");
+			} else {
+				$this->notif("Gagal! Kesalahan pada query","danger");
+				$this->redirect($this->baseurl . "transaction.php?pay=$nisn");
+			}
+		}
+	}
 }

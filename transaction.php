@@ -17,8 +17,18 @@ $nowyear = date("Y");
 
 if ( isset($_GET['pay']) ) {
 	$siswa = $myfunc->get_siswa($_GET['pay']);
-	$kelas = $myfunc->get_class($siswa['id_kelas']);
-	$spp = $myfunc->get_payment($siswa['id_spp']);
+	if ( $siswa == 3 ) {
+		$myfunc->redirect($myfunc->baseurl . "transaction.php");
+	} else {
+		$kelas = $myfunc->get_class($siswa['id_kelas']);
+		$spp = $myfunc->get_payment($siswa['id_spp']);
+	}
+}
+
+if ( isset($_POST['bayar']) ) {
+	$_POST['nisn'] = $_GET['pay'];
+	$_POST['id_user'] = $_SESSION["user_logged"]['id_user'];
+	$myfunc->do_payment($_POST);
 }
 ?>
 
@@ -55,7 +65,7 @@ if ( isset($_GET['pay']) ) {
 								<td><?= $row['alamat'] ?></td>
 								<td><?= $row['nohp'] ?></td>
 								<td align="center">
-									<a href="<?= $myfunc->baseurl ?>payment.php?pay=<?= $row['nisn'] ?>" class="btn btn-success">
+									<a href="<?= $myfunc->baseurl ?>transaction.php?pay=<?= $row['nisn'] ?>" class="btn btn-success">
 										Bayar
 									</a>
 								</td>
@@ -75,7 +85,7 @@ if ( isset($_GET['pay']) ) {
 			Pembayaran
 		</div>
 		<div class="card-body">
-			<a href="<?= $myfunc->baseurl ?>payment.php" class="btn btn-danger">< Batal</a>
+			<a href="<?= $myfunc->baseurl ?>transaction.php" class="btn btn-danger">< Batal</a>
 			<table class="table mt-5">
 				<tr class="bg-warning text-white">
 					<th colspan="2">Data Siswa</th>
