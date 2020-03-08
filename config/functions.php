@@ -114,6 +114,25 @@ class functions {
 		}
 	}
 
+	public function get_siswa($id_siswa = null)
+	{
+		if ( $id_siswa == null ) {
+			$query = "SELECT * FROM tblsiswa ORDER BY id_kelas DESC";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->query($query);
+			}
+		} else {
+			$query = "SELECT * FROM tblsiswa WHERE id_siswa = '$id_siswa'";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->get_data($query);
+			}
+		}
+	}
+
 	public function get_major($id_jurusan = null)
 	{
 		if ( $id_jurusan == null ) {
