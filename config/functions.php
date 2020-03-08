@@ -273,6 +273,25 @@ class functions {
 		}
 	}
 
+	public function get_officer($id_user = null)
+	{
+		if ( $id_user == null ) {
+			$query = "SELECT * FROM tbluser";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->query($query);
+			}
+		} else {
+			$query = "SELECT * FROM tbluser WHERE id_user = '$id_user'";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->get_data($query);
+			}
+		}
+	}
+
 	public function get_payment($id_spp = null)
 	{
 		if ( $id_spp == null ) {
@@ -284,6 +303,25 @@ class functions {
 			}
 		} else {
 			$query = "SELECT * FROM tblspp WHERE id_spp = '$id_spp'";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->get_data($query);
+			}
+		}
+	}
+
+	public function get_transaksi($id_pembayaran = null)
+	{
+		if ( $id_pembayaran == null ) {
+			$query = "SELECT * FROM tblpembayaran ORDER BY id_pembayaran DESC";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->query($query);
+			}
+		} else {
+			$query = "SELECT * FROM tblpembayaran WHERE id_pembayaran = '$id_pembayaran'";
 			if ( $this->num_rows($query) < 1 ) {
 				return 3;
 			} else {
