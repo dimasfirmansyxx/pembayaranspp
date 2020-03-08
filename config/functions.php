@@ -114,9 +114,9 @@ class functions {
 		}
 	}
 
-	public function get_siswa($id_siswa = null)
+	public function get_siswa($nisn = null)
 	{
-		if ( $id_siswa == null ) {
+		if ( $nisn == null ) {
 			$query = "SELECT * FROM tblsiswa ORDER BY id_kelas DESC";
 			if ( $this->num_rows($query) < 1 ) {
 				return 3;
@@ -124,7 +124,7 @@ class functions {
 				return $this->query($query);
 			}
 		} else {
-			$query = "SELECT * FROM tblsiswa WHERE id_siswa = '$id_siswa'";
+			$query = "SELECT * FROM tblsiswa WHERE nisn = '$nisn'";
 			if ( $this->num_rows($query) < 1 ) {
 				return 3;
 			} else {
@@ -269,6 +269,25 @@ class functions {
 			} else {
 				$this->notif("Gagal! Kesalahan pada query","danger");
 				$this->redirect($this->baseurl . "class_edit.php?id=$id_kelas");
+			}
+		}
+	}
+
+	public function get_payment($id_spp = null)
+	{
+		if ( $id_spp == null ) {
+			$query = "SELECT * FROM tblspp";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->query($query);
+			}
+		} else {
+			$query = "SELECT * FROM tblspp WHERE id_spp = '$id_spp'";
+			if ( $this->num_rows($query) < 1 ) {
+				return 3;
+			} else {
+				return $this->get_data($query);
 			}
 		}
 	}
