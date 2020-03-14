@@ -390,7 +390,7 @@ class functions {
 		return $output;
 	}
 
-		public function payment_delete($id_spp)
+	public function payment_delete($id_spp)
 	{
 		$delete = $this->exe("DELETE FROM tblspp WHERE id_spp = '$id_spp'");
 		if ( $delete > 0 ) {
@@ -438,5 +438,4 @@ class functions {
 				$this->redirect($this->baseurl . "payment_add.php");
 		}
 	}
-
 }

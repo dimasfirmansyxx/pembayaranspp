@@ -14,7 +14,6 @@ if ( isset($_POST['login']) ) {
 if ( isset($_SESSION["user_logged"]) ) {
 	$myfunc->redirect($myfunc->baseurl);
 }
-
 ?>
 
 <div class="login-section mt-5">
