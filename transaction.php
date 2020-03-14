@@ -53,24 +53,30 @@ if ( isset($_POST['bayar']) ) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($get as $row): ?>
-							<?php 
-								$kelas = $myfunc->get_class($row['id_kelas']);
-							?>
+						<?php if ( $get == 3 ): ?>
 							<tr>
-								<td><?= $row['nisn'] ?></td>
-								<td><?= $row['nis'] ?></td>
-								<td><?= $row['nama'] ?></td>
-								<td><?= $kelas['kelas'] ?></td>
-								<td><?= $row['alamat'] ?></td>
-								<td><?= $row['nohp'] ?></td>
-								<td align="center">
-									<a href="<?= $myfunc->baseurl ?>transaction.php?pay=<?= $row['nisn'] ?>" class="btn btn-success">
-										Bayar
-									</a>
-								</td>
+								<td colspan="7" class="text-center">Tidak ada data</td>
 							</tr>
-						<?php endforeach ?>
+						<?php else: ?>
+							<?php foreach ($get as $row): ?>
+								<?php 
+									$kelas = $myfunc->get_class($row['id_kelas']);
+								?>
+								<tr>
+									<td><?= $row['nisn'] ?></td>
+									<td><?= $row['nis'] ?></td>
+									<td><?= $row['nama'] ?></td>
+									<td><?= $kelas['kelas'] ?></td>
+									<td><?= $row['alamat'] ?></td>
+									<td><?= $row['nohp'] ?></td>
+									<td align="center">
+										<a href="<?= $myfunc->baseurl ?>transaction.php?pay=<?= $row['nisn'] ?>" class="btn btn-success">
+											Bayar
+										</a>
+									</td>
+								</tr>
+							<?php endforeach ?>
+						<?php endif ?>
 					</tbody>
 				</table>
 			</div>
