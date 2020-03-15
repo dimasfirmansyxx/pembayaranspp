@@ -23,6 +23,11 @@ body {
 	margin: 30px 5% 0 20%;	
 }
 
+.login-section {
+	width: 30% !important;
+	margin: auto;
+	min-height: 559px;
+}
 
 nav.navbar {
 	position: fixed;

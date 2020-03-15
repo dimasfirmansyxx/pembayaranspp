@@ -9,6 +9,11 @@ $myfunc->set_breadcrumbs("HOME /");
 
 include 'templates/head.php';
 include 'templates/nav.php';
+
+if ( isset($_GET['logout']) ) {
+	session_destroy();
+	$myfunc->redirect($myfunc->baseurl . "login.php");
+}
 ?>
 
 <div class="content-section mt-5">
